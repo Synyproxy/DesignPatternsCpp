@@ -26,7 +26,7 @@ struct Journal														//Typical Journal with a title and entries
 	}
 
 	//This is bad
-	void Save(const std::string& p_filename)						//Persistance is seperate concern from the journal
+	void BadSave(const std::string& p_filename)						//Persistance is seperate concern from the journal
 	{																//If you have other classes that need persistance
 		std::ofstream ofs(p_filename);								//They need to implement their own save method
 																	//If you no longer want to save to file but to a database
@@ -37,7 +37,6 @@ struct Journal														//Typical Journal with a title and entries
 		std::cout << "Journal Saved" << std::endl;
 	}
 };
-
 
 struct PersistanceManager											//More robust way of having persistance
 {
@@ -61,8 +60,9 @@ int main()
 	myJournal.AddEntry("I have implemented a Quaternion class");
 
 	//myJournal.Save("GameDevJournal.txt");						//Bad Design
-	PersistanceManager pm;
-	pm.Save(myJournal, "GameDevJournal.txt");
+
+	PersistanceManager persistanceManager;						//Testing Persistance Manager
+	persistanceManager.Save(myJournal, "GameDevJournal.txt");
 
 	std::cin.get();
 	return 0;

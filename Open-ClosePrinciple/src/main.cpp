@@ -69,8 +69,7 @@ struct BadProductFilter																//This is functional but bad design
 
 #pragma endregion
 
-//A better implementation that respects the Open-Close design principle 
-//uses the specification pattern 
+//A better implementation that respects the Open-Close design principle. Uses the specification pattern 
 
 #pragma region GoodProductFilter
 template <typename T> struct AndSpecification;			//forward declaration
@@ -149,7 +148,7 @@ struct AndSpecification : ISpecification<T>			//combining specification
 template <typename T>											//To be able to combine specification with && operator
 AndSpecification<T> operator&& (const ISpecification<T>& first, const ISpecification<T>& second)
 {
-	return { first, second };
+	return AndSpecification<T>(first, second);
 }
 
 #pragma endregion
